@@ -3,6 +3,7 @@ import { Globe, Lock, Link2, Copy } from 'lucide-react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
 export default function ShareModal({ isOpen, onClose, mindmapId, isPublic, onVisibilityChange }) {
   const [visibility, setVisibility] = useState(isPublic);
   const [copied, setCopied] = useState(false);
@@ -137,11 +138,6 @@ export default function ShareModal({ isOpen, onClose, mindmapId, isPublic, onVis
               Lưu lại
             </button>
           </div>
-          {copied && (
-            <Alert className="bg-green-100 text-green-800">
-              <AlertDescription>Đã sao chép liên kết!</AlertDescription>
-            </Alert>
-          )}
         </div>
       </div>
     </div>
