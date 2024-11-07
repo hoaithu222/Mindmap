@@ -124,7 +124,6 @@ export default function ShareModal({ isOpen, onClose, mindmapId, isPublic, onVis
           ) : (
             <div className="text-gray-700">
               <p>Nếu chọn riêng tư, chỉ có bạn mới được quyền xem Mindmap này.</p>
-              
             </div>
           )}
             <div className="flex justify-between mt-4">
