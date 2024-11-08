@@ -9,6 +9,9 @@ import { BiSolidSave } from "react-icons/bi";
 import ShareModal from "./ShareModal";
 import { useEffect, useState } from "react";
 import Head from "next/head";
+import Loading from "@/components/Loading";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const fetcher = (url) => 
@@ -52,7 +55,7 @@ export default function App({ params }) {
   }
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading/>
   }
 
   const addMindMap = async () => {
@@ -88,6 +91,7 @@ export default function App({ params }) {
 
   const handleClickSave = () => {
     addMindMap();
+    toast.success('Đã lưu thành công');
   };
 
   return (
@@ -101,6 +105,7 @@ export default function App({ params }) {
       </Head>
 
       <ReactFlowProvider>
+      <ToastContainer />
         <div className="app-header p-8">
           <div>
             <h1>
@@ -139,7 +144,9 @@ export default function App({ params }) {
               }}
             />
           </div>
+         
         </div>
+       
         {mindmap && (
           <AddNodeOnEdgeDrop 
             initialNodes={mindmap.nodes || []} 

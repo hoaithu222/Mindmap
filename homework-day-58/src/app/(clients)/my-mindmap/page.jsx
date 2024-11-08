@@ -1,11 +1,11 @@
 "use client";
 
 import { v4 as uuidv4 } from 'uuid';
-
 import { useUser } from '@auth0/nextjs-auth0/client';
 import useSWR, { mutate } from 'swr';
 import { useRouter } from 'next/navigation';
-
+import Loading from '@/components/Loading';
+import { useState } from 'react';
 const fetcher = (url) => fetch(url).then((res) => {
   if (!res.ok) {
     throw new Error('Lỗi khi lấy dữ liệu');
@@ -16,11 +16,15 @@ const fetcher = (url) => fetch(url).then((res) => {
 export default function PageMindMap() {
   const { user, isLoading } = useUser();
   const route = useRouter();
+  const [isAdding, setIsAdding] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  
   const { data: mindmaps , error } = useSWR(user ? `${process.env.SERVER_API}/mindmaps?createdBy=${user.sub}` : null, fetcher, {
     fallbackData: []
   });
 
   const addMindMap = async () => {
+    setIsAdding(true);
     const newMindMap = {
       id: uuidv4(),
       name: "Mindmap không có tên",
@@ -30,14 +34,14 @@ export default function PageMindMap() {
       isPublic: false,
       nodes: [
         {
-            id: '0',
-            type: 'input',
-            data: { label: 'My Mindmap' },
-            position: { x: 250, y: 100 },
-            style: { backgroundColor: '#8BC34A', color: '#FFF', padding: '20px', borderRadius: '8px' },
-            width:"150",
-            height:"40"
-          },
+          id: '0',
+          type: 'input',
+          data: { label: 'My Mindmap' },
+          position: { x: 250, y: 100 },
+          style: { backgroundColor: '#8BC34A', color: '#FFF', padding: '20px', borderRadius: '8px' },
+          width:"150",
+          height:"40"
+        },
       ],
       edges: [],
       description: "Chưa có mô tả",
@@ -50,7 +54,6 @@ export default function PageMindMap() {
       },
       body: JSON.stringify(newMindMap),
     });
-
 
     if (response.ok) {
       const addedMindMap = await response.json();
@@ -69,9 +72,11 @@ export default function PageMindMap() {
     } else {
       console.error("Lỗi khi thêm mindmap mới");
     }
+    setIsAdding(false);
   };
 
   const deleteMindMap = async (id) => {
+    setIsDeleting(true);
     const response = await fetch(`${process.env.SERVER_API}/mindmaps/${id}`, {
       method: "DELETE",
     });
@@ -82,10 +87,11 @@ export default function PageMindMap() {
     } else {
       console.error("Lỗi khi xóa mindmap");
     }
+    setIsDeleting(false);
   };
 
-  if (isLoading) {
-    return <div>Đang tải...</div>;
+  if (isLoading || isAdding || isDeleting) {
+    return <Loading />;
   }
 
   if (error) {

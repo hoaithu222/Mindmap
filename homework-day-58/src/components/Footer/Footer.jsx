@@ -61,7 +61,7 @@ export default function Footer() {
                     <li key={index} className="py-1 p-0 m-0">
                       <a
                         href="#"
-                        className="hover:text-purple-500 hover:border-b border-purple-500 transition-colors p-0 m-0"
+                        className="hover:text-purple-500 hover:border-b border-purple-500 transition-colors p-0 m-0 rounded-none"
                       >
                         {listItem}
                       </a>
@@ -95,7 +95,7 @@ export default function Footer() {
                     <li key={index} className="py-1 p-0 m-0">
                       <a
                         href="#"
-                        className="hover:text-purple-500 hover:border-b border-purple-500 transition-colors p-0 m-0"
+                        className="hover:text-purple-500 hover:border-b border-purple-500 transition-colors p-0 m-0 rounded-none"
                       >
                         {listItem}
                       </a>

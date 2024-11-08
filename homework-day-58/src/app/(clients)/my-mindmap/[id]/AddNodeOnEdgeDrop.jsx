@@ -10,6 +10,8 @@ import {
   Controls,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
+import Loading from '@/components/Loading';
+
 
 let id = 1;
 const getId = () => `${id++}`;
@@ -32,9 +34,18 @@ export default function AddNodeOnEdgeDrop({ initialNodes, initialEdges }) {
   const [selectedNode, setSelectedNode] = useState(null);
   const [editingNodeId, setEditingNodeId] = useState(null);
   const [newLabel, setNewLabel] = useState('');
+  const [loading, setLoading] = useState(true); 
   const { screenToFlowPosition } = useReactFlow();
 
-  
+  useEffect(() => {
+    
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000); 
+
+    return () => clearTimeout(timer);
+  }, []);
+
   const onNodeClick = useCallback((event, node) => {
     setSelectedNode(node.id);
     setNodes((nds) =>
@@ -48,7 +59,6 @@ export default function AddNodeOnEdgeDrop({ initialNodes, initialEdges }) {
     );
   }, [setNodes]);
 
-  
   const onEdgeClick = useCallback((event, edge) => {
     setSelectedEdge(edge.id);
     setEdges((eds) =>
@@ -63,7 +73,6 @@ export default function AddNodeOnEdgeDrop({ initialNodes, initialEdges }) {
     );
   }, [setEdges]);
 
-  
   const onNodeDoubleClick = useCallback((event, node) => {
     setEditingNodeId(node.id);
     setNewLabel(node.data.label);
@@ -145,6 +154,10 @@ export default function AddNodeOnEdgeDrop({ initialNodes, initialEdges }) {
       sessionStorage.setItem('edges', JSON.stringify(edges));
     }
   }, [edges]);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className="wrapper" ref={reactFlowWrapper}>

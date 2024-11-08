@@ -1,6 +1,3 @@
-import Image from "next/image";
-import { TiTick } from "react-icons/ti";
-import { GrLinkNext } from "react-icons/gr";
 export const metadata = {
   title: "Giá cả của Mindmap Flow",
   description: "Tìm hiểu về các gói giá và lợi ích của Mindmap Flow. Chọn gói phù hợp với nhu cầu của bạn.",
@@ -35,128 +32,143 @@ export const metadata = {
 };
 
 
-export default function PricePage() {
+const PricingCard = ({ icon, title, price, features, variant = 'default' }) => {
+  const baseClasses = "p-10 rounded-3xl transition-all duration-300 hover:scale-105";
+  const variantClasses = {
+    default: "bg-white shadow-xl",
+    featured: "bg-gray-900 text-white shadow-2xl scale-105"
+  };
+
   return (
-    <div className="py-16 bg-gray-50">
-      <div className="text-center mb-12">
-        <h2 className="text-5xl font-bold text-gray-800">
-          <span className="text-purple-600">Flexible</span> Plans
-        </h2>
-        <p className="text-lg text-gray-500 mt-2">
-          Choose a plan that works best for you and your team.
-        </p>
+    <div className={`${baseClasses} ${variantClasses[variant]}`}>
+      <div className="text-center mb-8">
+        <div className={`w-28 h-28 mx-auto rounded-3xl ${
+          variant === 'featured' ? 'bg-coral-400' : 
+          title === 'Basic' ? 'bg-emerald-400' : 'bg-indigo-400'
+        } flex items-center justify-center mb-6`}>
+          {title === 'Basic' && (
+            <svg className="w-16 h-16 text-white" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.88-11.71L10 14.17l-1.88-1.88a.996.996 0 1 0-1.41 1.41l2.59 2.59c.39.39 1.02.39 1.41 0L17.3 9.7a.996.996 0 1 0-1.41-1.41z"/>
+            </svg>
+          )}
+          {title === 'Startup' && (
+            <svg className="w-16 h-16 text-white" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+            </svg>
+          )}
+          {title === 'Enterprise' && (
+            <svg className="w-16 h-16 text-white" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/>
+            </svg>
+          )}
+        </div>
+        <h3 className={`text-3xl font-bold ${variant === 'featured' ? 'text-white' : 'text-gray-800'} mb-2`}>
+          {title}
+        </h3>
+        <div className="flex items-baseline justify-center gap-1 mb-6">
+          <span className="text-4xl font-bold">${price}</span>
+          <span className="text-xl text-gray-500">/ user</span>
+        </div>
       </div>
-      <div className="flex flex-col md:flex-row justify-center gap-8 px-6">
-        {/* Basic Plan */}
-        <div className="w-full md:w-1/4 p-8 rounded-xl shadow-lg bg-white text-left transition-transform hover:scale-105">
-          <div className="text-center mb-6">
-            <Image
-              src="/price_1.jpg"
-              alt="Basic Plan"
-              width={100}
-              height={100}
-              className="mx-auto"
-            />
-            <h3 className="text-2xl font-semibold text-gray-800 mt-4">Basic</h3>
-            <h4 className="text-3xl font-bold text-gray-800 mt-2">
-              $10<span className="text-lg font-normal"> / user</span>
-            </h4>
-          </div>
-          <div className="space-y-4 text-gray-600">
-            <div className="flex items-center gap-2">
-              <TiTick className="text-green-500" />
-              <span>Get started with</span> <strong>messaging</strong>
-            </div>
-            <div className="flex items-center gap-2">
-              <TiTick className="text-green-500" />
-              <span>Flexible</span> <strong>team meetings</strong>
-            </div>
-            <div className="flex items-center gap-2">
-              <TiTick className="text-green-500" />
-              <strong>5 TB</strong> <span>cloud storage</span>
-            </div>
-          </div>
-          <div className="text-center mt-8">
-            <button className="px-6 py-3 text-white bg-purple-600 rounded-full hover:bg-purple-700 flex items-center justify-center gap-2">
-              Choose Plan <GrLinkNext />
-            </button>
-          </div>
-        </div>
 
-        {/* Startup Plan */}
-        <div className="w-full md:w-1/4 p-8 rounded-xl shadow-lg bg-gray-900 text-white text-left transform scale-105">
-          <div className="text-center mb-6">
-            <Image
-              src="/price_2.jpg"
-              alt="Startup Plan"
-              width={100}
-              height={100}
-              className="mx-auto"
-            />
-            <h3 className="text-2xl font-semibold mt-4">Startup</h3>
-            <h4 className="text-3xl font-bold mt-2">
-              $24<span className="text-lg font-normal"> / user</span>
-            </h4>
+      <div className="space-y-6">
+        {features.map((feature, index) => (
+          <div key={index} className="flex items-center gap-3">
+            <svg 
+              className="w-6 h-6 text-green-500 flex-shrink-0" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth={2} 
+                d="M5 13l4 4L19 7" 
+              />
+            </svg>
+            <span className={`text-lg ${variant === 'featured' ? 'text-gray-300' : 'text-gray-600'}`}>
+              {feature}
+            </span>
           </div>
-          <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <TiTick className="text-green-500" />
-              <span>All features in</span> <strong>Basic</strong>
-            </div>
-            <div className="flex items-center gap-2">
-              <TiTick className="text-green-500" />
-              <span>Flexible</span> <strong>call scheduling</strong>
-            </div>
-            <div className="flex items-center gap-2">
-              <TiTick className="text-green-500" />
-              <strong>15 TB</strong> <span>cloud storage</span>
-            </div>
-          </div>
-          <div className="text-center mt-8">
-            <button className="px-6 py-3 text-white bg-purple-600 rounded-full hover:bg-purple-700 flex items-center justify-center gap-2">
-              Choose Plan <GrLinkNext />
-            </button>
-          </div>
-        </div>
+        ))}
+      </div>
 
-        {/* Enterprise Plan */}
-        <div className="w-full md:w-1/4 p-8 rounded-xl shadow-lg bg-white text-left transition-transform hover:scale-105">
-          <div className="text-center mb-6">
-            <Image
-              src="/price_3.jpg"
-              alt="Enterprise Plan"
-              width={100}
-              height={100}
-              className="mx-auto"
+      <button className="w-full mt-10 px-8 py-4 text-lg bg-indigo-600 text-white rounded-full hover:bg-indigo-700 flex items-center justify-center gap-3 transition-colors duration-300">
+        Choose Plan
+        <svg 
+          className="w-6 h-6" 
+          fill="none" 
+          stroke="currentColor" 
+          viewBox="0 0 24 24"
+        >
+          <path 
+            strokeLinecap="round" 
+            strokeLinejoin="round" 
+            strokeWidth={2} 
+            d="M9 5l7 7-7 7"
+          />
+        </svg>
+      </button>
+    </div>
+  );
+};
+
+const PricingSection = () => {
+  const plans = [
+    {
+      title: 'Basic',
+      price: '10',
+      features: [
+        'Get started with messaging',
+        'Flexible team meetings',
+        '5 TB cloud storage'
+      ]
+    },
+    {
+      title: 'Startup',
+      price: '24',
+      features: [
+        'All features in Basic',
+        'Flexible call scheduling',
+        '15 TB cloud storage'
+      ]
+    },
+    {
+      title: 'Enterprise',
+      price: '35',
+      features: [
+        'All features in Startup',
+        'Growth oriented',
+        'Unlimited cloud storage'
+      ]
+    }
+  ];
+
+  return (
+    <div className="py-20 px-6 bg-gray-50">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="text-6xl font-bold mb-6">
+            <span className="text-indigo-600">Flexible</span> Plans
+          </h2>
+          <p className="text-xl text-gray-600">
+            Choose a plan that works best for you and your team.
+          </p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+          {plans.map((plan, index) => (
+            <PricingCard
+              key={plan.title}
+              {...plan}
+              variant={index === 1 ? 'featured' : 'default'}
             />
-            <h3 className="text-2xl font-semibold text-gray-800 mt-4">
-              Enterprise
-            </h3>
-            <h4 className="text-3xl font-bold text-gray-800 mt-2">
-              $35<span className="text-lg font-normal"> / user</span>
-            </h4>
-          </div>
-          <div className="space-y-4 text-gray-600">
-            <div className="flex items-center gap-2">
-              <TiTick className="text-green-500" />
-              <span>All features in</span> <strong>Startup</strong>
-            </div>
-            <div className="flex items-center gap-2">
-              <TiTick className="text-green-500" />
-              <span>Growth</span> <strong>oriented</strong>
-            </div>
-            <div className="flex items-center gap-2">
-              <TiTick className="text-green-500" />
-              <strong>Unlimited</strong> <span>cloud storage</span>
-            </div>
-          </div>
-          <div className="text-center mt-8">
-            <button className="px-6 py-3 text-white bg-purple-600 rounded-full hover:bg-purple-700 flex items-center justify-center gap-4">
-              Choose Plan <GrLinkNext />
-            </button>
-          </div>
+          ))}
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default PricingSection;
