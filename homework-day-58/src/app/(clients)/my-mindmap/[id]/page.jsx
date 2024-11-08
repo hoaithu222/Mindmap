@@ -13,7 +13,6 @@ import Loading from "@/components/Loading";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 const fetcher = (url) => 
   fetch(url)
     .then((res) => {
@@ -55,7 +54,7 @@ export default function App({ params }) {
   }
 
   if (isLoading) {
-    return <Loading/>
+    return <Loading />;
   }
 
   const addMindMap = async () => {
@@ -77,6 +76,7 @@ export default function App({ params }) {
         const updatedMindMap = await response.json();
         console.log("Mindmap updated:", updatedMindMap);
         mutate(`${process.env.SERVER_API}/mindmaps/${id}`);
+        toast.success('Đã lưu thành công');
       } else {
         console.error("Update failed");
       }
@@ -91,7 +91,6 @@ export default function App({ params }) {
 
   const handleClickSave = () => {
     addMindMap();
-    toast.success('Đã lưu thành công');
   };
 
   return (
@@ -105,7 +104,7 @@ export default function App({ params }) {
       </Head>
 
       <ReactFlowProvider>
-      <ToastContainer />
+        <ToastContainer />
         <div className="app-header p-8">
           <div>
             <h1>
@@ -144,9 +143,8 @@ export default function App({ params }) {
               }}
             />
           </div>
-         
         </div>
-       
+
         {mindmap && (
           <AddNodeOnEdgeDrop 
             initialNodes={mindmap.nodes || []} 
