@@ -85,7 +85,7 @@ export default function PageMindMap() {
       console.log("Mindmap đã được xóa");
       mutate(`${process.env.NEXT_PUBLIC_SERVER_API}/mindmaps?createdBy=${user.sub}`, mindmaps.filter(mindmap => mindmap.id !== id), false);
     } else {
-      console.error("Lỗi khi xóa mindmap");
+      console.error("Lỗi khi xóa mindmap ");
     }
     setIsDeleting(false);
   };
