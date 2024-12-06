@@ -18,8 +18,8 @@ export default function PageMindMap() {
   const route = useRouter();
   const [isAdding, setIsAdding] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  
-  const { data: mindmaps , error } = useSWR(user ? `${process.env.SERVER_API}/mindmaps?createdBy=${user.sub}` : null, fetcher, {
+
+  const { data: mindmaps, error } = useSWR(user ? `${process.env.NEXT_PUBLIC_SERVER_API}/mindmaps?createdBy=${user.sub}` : null, fetcher, {
     fallbackData: []
   });
 
@@ -39,15 +39,15 @@ export default function PageMindMap() {
           data: { label: 'My Mindmap' },
           position: { x: 250, y: 100 },
           style: { backgroundColor: '#8BC34A', color: '#FFF', padding: '20px', borderRadius: '8px' },
-          width:"150",
-          height:"40"
+          width: "150",
+          height: "40"
         },
       ],
       edges: [],
       description: "Chưa có mô tả",
     };
 
-    const response = await fetch(`${process.env.SERVER_API}/mindmaps?createdBy=${user.sub}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/mindmaps?createdBy=${user.sub}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -57,7 +57,7 @@ export default function PageMindMap() {
 
     if (response.ok) {
       const addedMindMap = await response.json();
-      mutate(`${process.env.SERVER_API}/mindmaps?createdBy=${user.sub}`, [...mindmaps, addedMindMap], false);
+      mutate(`${process.env.NEXT_PUBLIC_SERVER_API}/mindmaps?createdBy=${user.sub}`, [...mindmaps, addedMindMap], false);
       route.push(`/my-mindmap/${addedMindMap.id}`);
       sessionStorage.setItem("nodes", JSON.stringify([{
         id: '0',
@@ -77,13 +77,13 @@ export default function PageMindMap() {
 
   const deleteMindMap = async (id) => {
     setIsDeleting(true);
-    const response = await fetch(`${process.env.SERVER_API}/mindmaps/${id}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/mindmaps/${id}`, {
       method: "DELETE",
     });
 
     if (response.ok) {
       console.log("Mindmap đã được xóa");
-      mutate(`${process.env.SERVER_API}/mindmaps?createdBy=${user.sub}`, mindmaps.filter(mindmap => mindmap.id !== id), false);
+      mutate(`${process.env.NEXT_PUBLIC_SERVER_API}/mindmaps?createdBy=${user.sub}`, mindmaps.filter(mindmap => mindmap.id !== id), false);
     } else {
       console.error("Lỗi khi xóa mindmap");
     }

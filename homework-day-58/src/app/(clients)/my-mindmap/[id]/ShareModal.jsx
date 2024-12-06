@@ -37,7 +37,7 @@ const ShareModal = ({ isOpen, onClose, mindmapId, isPublic, onVisibilityChange }
   const handleSubmit = async () => {
     setIsSubmitting(true);
     try {
-      const response = await fetch(`${process.env.SERVER_API}/mindmaps/${mindmapId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/mindmaps/${mindmapId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ const ShareModal = ({ isOpen, onClose, mindmapId, isPublic, onVisibilityChange }
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-[9999]">
       <div className="bg-white rounded-lg w-full max-w-md p-6">
         <h2 className="text-xl font-semibold mb-4">Chia sẻ Mindmap</h2>
-        
+
         <div className="space-y-4">
           <div className="flex gap-4">
             <button
@@ -155,7 +155,7 @@ const ShareModal = ({ isOpen, onClose, mindmapId, isPublic, onVisibilityChange }
           )}
 
           <div className="flex justify-between pt-4">
-            <button 
+            <button
               onClick={onClose}
               className="px-4 py-2 bg-gray-100 rounded hover:bg-gray-200 transition-colors"
             >

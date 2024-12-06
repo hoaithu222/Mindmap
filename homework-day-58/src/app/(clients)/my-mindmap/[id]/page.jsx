@@ -13,7 +13,7 @@ import Loading from "@/components/Loading";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const fetcher = (url) => 
+const fetcher = (url) =>
   fetch(url)
     .then((res) => {
       if (!res.ok) {
@@ -25,9 +25,9 @@ const fetcher = (url) =>
 export default function App({ params }) {
   const { id } = params;
   const { data: mindmap, error, isLoading } = useSWR(
-    `${process.env.SERVER_API}/mindmaps/${id}`,
+    `${process.env.NEXT_PUBLIC_SERVER_API}/mindmaps/${id}`,
     fetcher,
-    { 
+    {
       fallbackData: { nodes: [], edges: [] },
       revalidateOnMount: true
     }
@@ -60,11 +60,11 @@ export default function App({ params }) {
   const addMindMap = async () => {
     const nodes = typeof window !== 'undefined' ? JSON.parse(sessionStorage.getItem("nodes")) || [] : [];
     const edges = typeof window !== 'undefined' ? JSON.parse(sessionStorage.getItem("edges")) || [] : [];
-    
+
     const mindmapUpdate = { nodes, edges, name, description };
-    
+
     try {
-      const response = await fetch(`${process.env.SERVER_API}/mindmaps/${id}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/mindmaps/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -75,7 +75,7 @@ export default function App({ params }) {
       if (response.ok) {
         const updatedMindMap = await response.json();
         console.log("Mindmap updated:", updatedMindMap);
-        mutate(`${process.env.SERVER_API}/mindmaps/${id}`);
+        mutate(`${process.env.NEXT_PUBLIC_SERVER_API}/mindmaps/${id}`);
         toast.success('Đã lưu thành công');
       } else {
         console.error("Update failed");
@@ -108,21 +108,21 @@ export default function App({ params }) {
         <div className="app-header p-8">
           <div>
             <h1>
-              <input 
-                type="text" 
-                name="title" 
-                value={name} 
+              <input
+                type="text"
+                name="title"
+                value={name}
                 onChange={handleChange(setName)}
-                onBlur={addMindMap} 
+                onBlur={addMindMap}
                 className="rounded-lg px-4 py-2 w-full focus:ring-0 focus:outline-none mb-2"
               />
             </h1>
-            <input 
-              type="text" 
-              name="desc" 
-              value={description} 
+            <input
+              type="text"
+              name="desc"
+              value={description}
               onChange={handleChange(setDescription)}
-              onBlur={addMindMap} 
+              onBlur={addMindMap}
               className="rounded-lg px-4 py-2 w-full focus:ring-0 focus:outline-none"
             />
           </div>
@@ -139,15 +139,15 @@ export default function App({ params }) {
               mindmapId={id}
               isPublic={mindmap.isPublic}
               onVisibilityChange={(newVisibility) => {
-                mutate(`${process.env.SERVER_API}/mindmaps/${id}`);
+                mutate(`${process.env.NEXT_PUBLIC_SERVER_API}/mindmaps/${id}`);
               }}
             />
           </div>
         </div>
 
         {mindmap && (
-          <AddNodeOnEdgeDrop 
-            initialNodes={mindmap.nodes || []} 
+          <AddNodeOnEdgeDrop
+            initialNodes={mindmap.nodes || []}
             initialEdges={mindmap.edges || []}
           />
         )}
