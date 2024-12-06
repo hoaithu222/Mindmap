@@ -443,6 +443,149 @@
       "description": "Chưa có mô tả",
       "shareTitle": "",
       "shareDescription": ""
+    },
+    {
+      "id": "056980c2-3e53-457e-b10b-3b39d9f6c259",
+      "name": "Mindmap không có tên",
+      "createdBy": "google-oauth2|113832693344543295610",
+      "createdAt": "2024-12-06T14:16:27.260Z",
+      "updatedAt": "2024-12-06T14:16:27.260Z",
+      "isPublic": true,
+      "nodes": [
+        {
+          "id": "0",
+          "type": "input",
+          "data": {
+            "label": "My Mindmap"
+          },
+          "position": {
+            "x": 337.08752211101097,
+            "y": -162.58207424380598
+          },
+          "style": {
+            "backgroundColor": "#8BC34A",
+            "color": "#FFF",
+            "padding": "20px",
+            "borderRadius": "8px"
+          },
+          "width": "150",
+          "height": "40",
+          "measured": {
+            "width": 150,
+            "height": 44
+          },
+          "selected": true,
+          "dragging": false
+        },
+        {
+          "id": "1",
+          "position": {
+            "x": 30,
+            "y": 15
+          },
+          "data": {
+            "label": "Node 1"
+          },
+          "origin": [
+            0.5,
+            0
+          ],
+          "style": {
+            "backgroundColor": "#3F51B5",
+            "color": "#FFF",
+            "padding": "10px",
+            "borderRadius": "8px",
+            "cursor": "pointer"
+          },
+          "measured": {
+            "width": 150,
+            "height": 40
+          }
+        },
+        {
+          "id": "2",
+          "position": {
+            "x": 300,
+            "y": 150
+          },
+          "data": {
+            "label": "Node 2"
+          },
+          "origin": [
+            0.5,
+            0
+          ],
+          "style": {
+            "backgroundColor": "#3F51B5",
+            "color": "#FFF",
+            "padding": "10px",
+            "borderRadius": "8px",
+            "cursor": "pointer"
+          },
+          "measured": {
+            "width": 150,
+            "height": 40
+          }
+        },
+        {
+          "id": "3",
+          "position": {
+            "x": 510,
+            "y": -15
+          },
+          "data": {
+            "label": "Node 3"
+          },
+          "origin": [
+            0.5,
+            0
+          ],
+          "style": {
+            "backgroundColor": "#3F51B5",
+            "color": "#FFF",
+            "padding": "10px",
+            "borderRadius": "8px",
+            "cursor": "pointer"
+          },
+          "measured": {
+            "width": 150,
+            "height": 40
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "1",
+          "source": "0",
+          "target": "1",
+          "style": {
+            "stroke": "#b1b1b7",
+            "strokeWidth": 2
+          }
+        },
+        {
+          "id": "2",
+          "source": "0",
+          "target": "2",
+          "style": {
+            "stroke": "#b1b1b7",
+            "strokeWidth": 2
+          }
+        },
+        {
+          "id": "3",
+          "source": "0",
+          "target": "3",
+          "style": {
+            "stroke": "#b1b1b7",
+            "strokeWidth": 2
+          }
+        }
+      ],
+      "description": "Chưa có mô tả",
+      "shareTitle": "",
+      "shareDescription": "",
+      "shareImage": "https://mindmap.f8.edu.vn/_next/static/media/so-do-tu-duy.95dad645.jpg"
     }
   ],
   "shares": []
