@@ -6,6 +6,8 @@ import useSWR, { mutate } from 'swr';
 import { useRouter } from 'next/navigation';
 import Loading from '@/components/Loading';
 import { useState } from 'react';
+import { FaEdit } from "react-icons/fa";
+import { IoTrashBinSharp } from "react-icons/io5";
 const fetcher = (url) => fetch(url).then((res) => {
   if (!res.ok) {
     throw new Error('Lỗi khi lấy dữ liệu');
@@ -141,7 +143,7 @@ export default function PageMindMap() {
                     className="text-blue-500 mr-2"
                     onClick={() => route.push(`/my-mindmap/${mindmap.id}`)}
                   >
-                    ✏️
+                    <FaEdit />
                   </button>
                   <button
                     className="text-red-500"
@@ -150,7 +152,7 @@ export default function PageMindMap() {
                       deleteMindMap(mindmap.id);
                     }}
                   >
-                    🗑️
+                    <IoTrashBinSharp />
                   </button>
                 </td>
               </tr>
