@@ -1,8 +1,8 @@
+"use client";
 import React, { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import "../globals.css";
+
 import { slides } from "./slidesData";
-import "../style/PowerPointSlider.css";
 
 const PowerPointSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
