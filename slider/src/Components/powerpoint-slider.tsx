@@ -1,8 +1,8 @@
-"use client";
 import React, { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-
+import "../globals.css";
 import { slides } from "./slidesData";
+import "../style/PowerPointSlider.css";
 
 const PowerPointSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -29,11 +29,6 @@ const PowerPointSlider = () => {
       <div className="relative aspect-[16/9] overflow-hidden rounded-xl shadow-5xl">
         {slides[currentSlide]?.fullImage ? (
           <div className="absolute inset-0">
-            {/* <img
-              src={slides[currentSlide]?.imageUrl || "/fallback-image.jpg"}
-              alt={slides[currentSlide]?.title || "Slide"}
-              className="w-full h-full object-cover "
-            /> */}
             <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-center p-12">
               {slides[currentSlide]?.icon}
               <h1 className="text-5xl font-bold text-blue mb-4">
